@@ -15,12 +15,12 @@
 
   if($_SERVER["REQUEST_METHOD"] == "POST"){
 
-    if(empty(trim($_POST["user_name"]))){
+    if(empty($_POST["user_name"])){
       $user_name_err = "Please enter a username.";
     } elseif(!preg_match('/^[a-zA-Z0-9_]+$/', trim($_POST["user_name"]))){
       $user_name_err = "Username can only contain letters, numbers, and underscores.";
     } else{
-      $sql = "SELECT `id` FROM `registrations` WHERE `user_name` = ?";
+      $sql = "SELECT `id` FROM `users` WHERE `user_name` ";
 
       if($stmt = mysqli_prepare($link, $sql)){
         mysqli_stmt_bind_param($stmt, "s", $param_username);
@@ -60,7 +60,7 @@
       $password = trim($_POST["password"]);
     }
 
-    if(empty(trim($_POST["repied_password"]))){
+    if(empty($_POST["repied_password"])){
       $confirm_password_err = "Please confirm password.";
     } else{
       $repied_password = trim($_POST["repied_password"]);
@@ -71,7 +71,7 @@
 
     if(empty($username_err) && empty($password_err) && empty($confirm_password_err)){
 
-      $sql = "INSERT INTO `registrations`( `user_name`, `email`, `password`, `repied_password`)  VALUES (?, ?, ?, ?)";
+      $sql = "INSERT INTO `users`( `user_name`, `email`, `password`, `repied_password`)  VALUES (?, ?, ?, ?)";
       $result = mysqli_query($link, $sql);
 
       if($stmt = mysqli_prepare($link, $sql)){
