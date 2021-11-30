@@ -14,13 +14,12 @@
   $user_name_err = $password_err = $confirm_password_err = $email_err = "";
 
   if($_SERVER["REQUEST_METHOD"] == "POST"){
-
     if(empty($_POST["user_name"])){
       $user_name_err = "Please enter a username.";
     } elseif(!preg_match('/^[a-zA-Z0-9_]+$/', trim($_POST["user_name"]))){
       $user_name_err = "Username can only contain letters, numbers, and underscores.";
     } else{
-      $sql = "SELECT `id` FROM `users` WHERE `user_name` ";
+      $sql = "SELECT `id` FROM `users`";
 
       if($stmt = mysqli_prepare($link, $sql)){
         mysqli_stmt_bind_param($stmt, "s", $param_username);
@@ -44,15 +43,15 @@
       }
     }
 
-    if(empty(trim($_POST["email"]))){
+    if(empty($_POST["email"])){
       $email_err = "Please enter a email.";
     } elseif(strlen(trim($_POST["email"])) < 6){
-      $email_err = "Password must have atleast 6 characters.";
+      $email_err = "Email must have atleast @gmail.com or @abv.bg .";
     } else{
       $email = trim($_POST["email"]);
     }
 
-    if(empty(trim($_POST["password"]))){
+    if(empty($_POST["password"])){
       $password_err = "Please enter a password.";
     } elseif(strlen(trim($_POST["password"])) < 6){
       $password_err = "Password must have atleast 6 characters.";
@@ -120,7 +119,7 @@
         </div>
         <div class="form-group">
           <label>Email</label>
-          <input type="text" name="email" class="form-control <?php echo (!empty($email_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $email; ?>">
+          <input type="email" name="email" class="form-control <?php echo (!empty($email_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $email; ?>">
           <span class="invalid-feedback"><?php echo $email_err; ?></span>
         </div>
         <div class="form-group">
@@ -140,5 +139,41 @@
         <p>Already have an account? <a href="login.php">Login here</a>.</p>
       </form>
     </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js">
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@8">
+<script type="text/javascript">
+$(function(){
+$('#register').click(function(e){
+var valid = this.form.checkValidity();
+if(valid){
+var user_name = $('#user_name').val();
+var email = $('#email').val();
+var password = $('#password').val();
+var repied_password = $('#repied_password').val();
+e.preventDefault();
+$.ajax({
+type: 'POST',
+url: 'process.php',
+data: {firstname: firstname,lastname: lastname,email: email,phonenumber: phonenumber,password: password},
+success: function(data){
+Swal.fire({
+'title': 'Successful',
+'text': data,
+'type': 'success'
+})
+},
+error: function(data){
+Swal.fire({
+'title': 'Errors',
+'text': 'There were errors while saving the data.',
+'type': 'error'
+})
+}
+});
+}else{
+}
+});
+});
+</script>
   </body>
   </html>
