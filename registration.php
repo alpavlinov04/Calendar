@@ -19,7 +19,7 @@
     } elseif(!preg_match('/^[a-zA-Z0-9_]+$/', trim($_POST["user_name"]))){
       $user_name_err = "Username can only contain letters, numbers, and underscores.";
     } else{
-      $sql = "SELECT `id` FROM `users`";
+
 
       if($stmt = mysqli_prepare($link, $sql)){
         mysqli_stmt_bind_param($stmt, "s", $param_username);
@@ -70,9 +70,9 @@
 
     if (!empty($user_name) || !empty($email) ||  !empty($password) || !empty($confirm_password)){
 
-      $INSERT = "INSERT INTO `users`(`user_name`, `email`, `password`, `confirm_password`) VALUES (?,?,?,?)";
-      $stmt = $link->prepare($INSERT);
-      $stmt->bind_param("ssss",$user_name, $email, $password, $confirm_password);
+      $Insert = "INSERT INTO `users`(`user_name`, `email`, `password`, `confirm_password`) VALUES (?, ?, ?, ?)";
+      $stmt = $link->prepare($Insert);
+      $stmt->bind_param("ssss", $user_name, $email, $password, $confirm_password);
       $stmt->execute();
       $stmt->bind_result($user_name, $email, $password, $confirm_password);
       $stmt->store_result();
@@ -90,10 +90,7 @@
       $link->close();
     }
   }
-  else {
-    echo "All fields are required..";
-    die();
-  }
+
   ?>
 
   <!DOCTYPE html>
@@ -102,6 +99,8 @@
     <meta charset="UTF-8">
     <title>Registration</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/js/bootstrap.bundle.min.js"></script>
     <style>
     body{ font: 14px sans-serif; }
     .wrapper{ width: 360px; padding: 20px; }
@@ -114,29 +113,29 @@
         <p>Please fill this form to create an account.</p>
       </center>
 
-      <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
-        <div class="form-group">
-          <label>Username</label>
-          <input type="text" name="username" class="form-control <?php echo (!empty($user_name_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $user_name; ?>">
+      <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" action="events.php" class="container mt-3" method="post">
+        <div class="form-group" class="form-floating mb-3 mt-3">
+          <label for="text">Username</label>
+          <input type="text" name="username" id="text" placeholder="Enter username" class="form-control <?php echo (!empty($user_name_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $user_name; ?>">
           <span class="invalid-feedback"><?php echo $user_name_err; ?></span>
         </div>
-        <div class="form-group">
-          <label>Email</label>
-          <input type="email" name="email" class="form-control <?php echo (!empty($email_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $email; ?>">
+        <div class="form-group" class="form-floating mb-3 mt-3">
+          <label for="email">Email</label>
+          <input type="email" name="email" id="email" placeholder="Enter email" class="form-control <?php echo (!empty($email_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $email; ?>">
           <span class="invalid-feedback"><?php echo $email_err; ?></span>
         </div>
-        <div class="form-group">
-          <label>Password</label>
-          <input type="password" name="password" class="form-control <?php echo (!empty($password_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $password; ?>">
+        <div class="form-group" class="form-floating mb-3 mt-3">
+          <label for="pwd">Password</label>
+          <input type="password" name="password" id="pwd" placeholder="Enter password" class="form-control <?php echo (!empty($password_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $password; ?>">
           <span class="invalid-feedback"><?php echo $password_err; ?></span>
         </div>
-        <div class="form-group">
-          <label>Confirm Password</label>
-          <input type="password" name="confirm_password" class="form-control <?php echo (!empty($confirm_password_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $confirm_password; ?>">
+        <div class="form-group" class="form-floating mb-3 mt-3">
+          <label for="pwd">Confirm Password</label>
+          <input type="password" name="confirm_password" id="pwd" placeholder="Enter again password" class="form-control <?php echo (!empty($confirm_password_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $confirm_password; ?>">
           <span class="invalid-feedback"><?php echo $confirm_password_err; ?></span>
         </div>
         <div class="form-group">
-          <input type="submit" class="btn btn-primary" value="Submit">
+          <input type="submit" class="btn btn-primary" value="Submit"><a href="events.php"></a>
           <input type="reset" class="btn btn-secondary ml-2" value="Reset">
         </div>
         <p>Already have an account? <a href="login.php">Login here</a>.</p>
@@ -177,6 +176,6 @@
         }
       });
     });
-  </script>
-</body>
-</html>
+    </script>
+  </body>
+  </html>
