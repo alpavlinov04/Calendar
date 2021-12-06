@@ -10,7 +10,7 @@
     die("ERROR: Could not connect. " . mysqli_connect_error());
   }
 
-  $user_name = $password = $repied_password = $email = "";
+  $user_name = $password = $confirm_password = $email = "";
   $user_name_err = $password_err = $confirm_password_err = $email_err = "";
 
   if($_SERVER["REQUEST_METHOD"] == "POST"){
@@ -46,7 +46,7 @@
     if(empty($_POST["email"])){
       $email_err = "Please enter a email.";
     } elseif(strlen(trim($_POST["email"])) < 6){
-      $email_err = "Email must have atleast @gmail.com or @abv.bg .";
+      $email_err = "Email must have atleast @gmail.com or @abv.bg or other.";
     } else{
       $email = trim($_POST["email"]);
     }
@@ -59,37 +59,40 @@
       $password = trim($_POST["password"]);
     }
 
-    if(empty($_POST["repied_password"])){
+    if(empty($_POST["confirm_password"])){
       $confirm_password_err = "Please confirm password.";
     } else{
-      $repied_password = trim($_POST["repied_password"]);
-      if(empty($password_err) && ($password != $repied_password)){
+      $confirm_password = trim($_POST["confirm_password"]);
+      if(empty($password_err) && ($password != $confirm_password)){
         $confirm_password_err = "Password did not match.";
       }
     }
 
-    if(empty($username_err) && empty($password_err) && empty($confirm_password_err)){
+    if (!empty($user_name) || !empty($email) ||  !empty($password) || !empty($confirm_password)){
 
-      $sql = "INSERT INTO `users`( `user_name`, `email`, `password`, `repied_password`)  VALUES (?, ?, ?, ?)";
-      $result = mysqli_query($link, $sql);
-
-      if($stmt = mysqli_prepare($link, $sql)){
-        mysqli_stmt_bind_param($stmt, "ss", $param_username, $param_password);
-
-        $param_username = $user_name;
-        $param_password = password_hash($password, PASSWORD_DEFAULT);
-
-        if(mysqli_stmt_execute($stmt)){
-          header("location: login.php");
-        } else{
-          echo "Oops! Something went wrong. Please try again later.";
-        }
-
-        mysqli_stmt_close($stmt);
+      $INSERT = "INSERT INTO `users`(`user_name`, `email`, `password`, `confirm_password`) VALUES (?,?,?,?)";
+      $stmt = $link->prepare($INSERT);
+      $stmt->bind_param("ssss",$user_name, $email, $password, $confirm_password);
+      $stmt->execute();
+      $stmt->bind_result($user_name, $email, $password, $confirm_password);
+      $stmt->store_result();
+      $rnum = $stmt->num_rows;
+      if($rnum == 0)
+      {
+        $stmt->close();
+        header("location:registartion.php");
       }
+      else {
+        alert("All fields are required");
+      }
+      $stmt->close();
+      $stmt1->close();
+      $link->close();
     }
-
-    mysqli_close($link);
+  }
+  else {
+    echo "All fields are required..";
+    die();
   }
   ?>
 
@@ -114,8 +117,8 @@
       <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
         <div class="form-group">
           <label>Username</label>
-          <input type="text" name="username" class="form-control <?php echo (!empty($username_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $user_name; ?>">
-          <span class="invalid-feedback"><?php echo $username_err; ?></span>
+          <input type="text" name="username" class="form-control <?php echo (!empty($user_name_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $user_name; ?>">
+          <span class="invalid-feedback"><?php echo $user_name_err; ?></span>
         </div>
         <div class="form-group">
           <label>Email</label>
@@ -129,7 +132,7 @@
         </div>
         <div class="form-group">
           <label>Confirm Password</label>
-          <input type="password" name="confirm_password" class="form-control <?php echo (!empty($confirm_password_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $repied_password; ?>">
+          <input type="password" name="confirm_password" class="form-control <?php echo (!empty($confirm_password_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $confirm_password; ?>">
           <span class="invalid-feedback"><?php echo $confirm_password_err; ?></span>
         </div>
         <div class="form-group">
@@ -140,40 +143,40 @@
       </form>
     </div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js">
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@8">
-<script type="text/javascript">
-$(function(){
-$('#register').click(function(e){
-var valid = this.form.checkValidity();
-if(valid){
-var user_name = $('#user_name').val();
-var email = $('#email').val();
-var password = $('#password').val();
-var repied_password = $('#repied_password').val();
-e.preventDefault();
-$.ajax({
-type: 'POST',
-url: 'process.php',
-data: {firstname: firstname,lastname: lastname,email: email,phonenumber: phonenumber,password: password},
-success: function(data){
-Swal.fire({
-'title': 'Successful',
-'text': data,
-'type': 'success'
-})
-},
-error: function(data){
-Swal.fire({
-'title': 'Errors',
-'text': 'There were errors while saving the data.',
-'type': 'error'
-})
-}
-});
-}else{
-}
-});
-});
-</script>
-  </body>
-  </html>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8">
+    <script type="text/javascript">
+    $(function(){
+      $('#register').click(function(e){
+        var valid = this.form.checkValidity();
+        if(valid){
+          var user_name = $('#user_name').val();
+          var email = $('#email').val();
+          var password = $('#password').val();
+          var repied_password = $('#repied_password').val();
+          e.preventDefault();
+          $.ajax({
+            type: 'POST',
+            url: 'process.php',
+            data: {firstname: firstname,lastname: lastname,email: email,phonenumber: phonenumber,password: password},
+            success: function(data){
+              Swal.fire({
+                'title': 'Successful',
+                'text': data,
+                'type': 'success'
+              })
+            },
+            error: function(data){
+              Swal.fire({
+                'title': 'Errors',
+                'text': 'There were errors while saving the data.',
+                'type': 'error'
+              })
+            }
+          });
+        }else{
+        }
+      });
+    });
+  </script>
+</body>
+</html>

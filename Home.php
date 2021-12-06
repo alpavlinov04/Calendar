@@ -44,10 +44,10 @@ h1 {
 <body>
 <h1> Welcome to home page on your Calendar</h1>
 <center>
-<div class="btn-group">
-  <button class="button button1">Registration</button>
-  <button class="button button1" href="login.php">Login</button>
-</div>
+
+  <a class="button" href="login.php" align="center">Login</a>
+  <a class="button" href="registration.php">Registration</a>
+
 </center>
 </body>
 </html>

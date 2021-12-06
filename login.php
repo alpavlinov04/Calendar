@@ -16,12 +16,12 @@
     exit;
   }
   $user_name = $password = $email = "";
-  $username_err = $password_err = $login_err = $email_err = "";
+  $user_name_err = $password_err = $login_err = $email_err = "";
 
 
   if($_SERVER["REQUEST_METHOD"] == "POST"){
     if(empty($_POST["user_name"])){
-      $username_err = "Please enter username.";
+      $user_name_err = "Please enter username.";
     } else{
       $user_name = trim($_POST["user_name"]);
     }
@@ -37,7 +37,7 @@
       $password = trim($_POST["password"]);
     }
 
-    if(empty($username_err) && empty($password_err)){
+    if(empty($user_name_err) && empty($password_err)){
 
       $sql = "SELECT `id`, `user_name`, `email`, `password` FROM `users` WHERE `user_name` = ?";
 
@@ -60,6 +60,7 @@
                 $_SESSION["id"] = $id;
                 $_SESSION["user_name"] = $user_name;
                 $_SESSION["email"] = $email;
+                $_SESSION["password"] = $password;
 
                 header("location: welcome.php");
               } else{
@@ -77,7 +78,6 @@
       }
     }
 
-    // Close connection
     mysqli_close($link);
   }
   ?>
