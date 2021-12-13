@@ -62,7 +62,7 @@
                 $_SESSION["email"] = $email;
                 $_SESSION["password"] = $password;
 
-                header("location: welcome.php");
+                header("location: events.php");
               } else{
                 $login_err = "Invalid username or password.";
               }
@@ -125,7 +125,7 @@
             <span class="invalid-feedback"><?php echo $password_err; ?></span>
           </div>
           <div class="form-group">
-            <input type="submit" class="btn btn-primary" value="Login">
+            <input type="submit" class="btn btn-primary" value="Submit" href="events.php">
           </div>
           <p>Don't have an account? <a href="registration.php">Sign up now</a>.</p>
         </form>

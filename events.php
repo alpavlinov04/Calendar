@@ -3,6 +3,7 @@ $link = mysqli_connect('localhost', 'root', '', 'calendar');
 if($link === false){
   die("ERROR: Could not connect. " . mysqli_connect_error());
 }
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -138,10 +139,15 @@ if($link === false){
   </div>
 </header>
 <?php
+
 include 'calendar.php';
 $calendar = new Calendar();
 $calendar->add_event('Holiday', '2021-12-23', 9, 'red');
+$calendar->add_event('Work', '2021-12-13', 2, 'green');
 echo $calendar;
+?>
+<?php
+
 ?>
 <a class="button" href="made_events.php" align="center">Made events</a>
 <a class="button" href="Home.php" align="center">Home</a>

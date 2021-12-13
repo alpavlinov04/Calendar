@@ -1,6 +1,5 @@
 <?php
 class Calendar {
-
   private $active_year, $active_month, $active_day;
   private $events = [];
 
@@ -9,12 +8,11 @@ class Calendar {
     $this->active_month = $date != null ? date('m', strtotime($date)) : date('m');
     $this->active_day = $date != null ? date('d', strtotime($date)) : date('d');
   }
-  
+
   public function add_event($name, $date, $days = 1, $color = '') {
     $color = $color ? ' ' . $color : $color;
     $this->events[] = [$name, $date, $days, $color];
   }
-
   public function __toString() {
     $num_days = date('t', strtotime($this->active_day . '-' . $this->active_month . '-' . $this->active_year));
     $num_days_last_month = date('j', strtotime('last day of previous month', strtotime($this->active_day . '-' . $this->active_month . '-' . $this->active_year)));

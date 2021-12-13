@@ -36,6 +36,14 @@ if(empty($_POST["color"])){
 } else{
   $color = $_POST["color"];
 }
+$event = $_POST['event'];
+$event = array(
+  'name' => $name,
+  'date_started' => $date_started,
+  'date_ended' => $date_ended,
+  'days' => $days,
+  'color' => $color,
+);
 if (!empty($name) || !empty($date_started) ||  !empty($date_ended) || !empty($color)){
 
   $INSERT = "INSERT INTO `events`(`name`, `date_started`, `date_ended`, `color`) VALUES (?, ?, ?, ?)";
@@ -137,6 +145,7 @@ if (!empty($name) || !empty($date_started) ||  !empty($date_ended) || !empty($co
       <input type="submit" class="btn btn-primary" value="Submit" href="events.php">
       <input type="submit" class="btn btn-primary" value="Return" href="events.php">
     </div>
+
   </div>
   </form>
 
