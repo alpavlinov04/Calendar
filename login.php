@@ -92,14 +92,16 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/js/bootstrap.bundle.min.js"></script>
     <style>
     body{ font: 14px sans-serif; }
-    .wrapper{ width: 360px; padding: 20px; }
+    .wrapper{ width: 360px; padding: 20px;
+    }
     </style>
   </head>
   <body>
+    <center>
     <div class="wrapper">
       <h2>Login</h2>
       <p>Please fill in your credentials to login.</p>
-
+    </center>
       <?php
       if(!empty($login_err)){
         echo '<div class="alert alert-danger">' . $login_err . '</div>';

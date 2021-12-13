@@ -1,10 +1,11 @@
 <?php
+include 'calendar.php';
 $link = mysqli_connect('localhost', 'root', '', 'calendar');
 if($link === false){
   die("ERROR: Could not connect. " . mysqli_connect_error());
 }
-$name = $date_started = $date_ended = $color = $calendar = "";
-$name_err = $date_started_err = $date_ended_err = $color_err = "";
+$name = $date_started = $date_ended = $days = $color = $calendar = "";
+$name_err = $date_started_err = $date_ended_err = $days_err = $color_err = "";
 
 if(empty($_POST["name"])){
   $name_err = "Please enter a name of events.";
@@ -22,6 +23,12 @@ if(empty($_POST["date_ended"])){
   $date_ended_err = "Please enter a date end of events.";
 } else{
   $date_ended = $_POST["date_ended"];
+}
+
+if(empty($_POST["days"])){
+  $days_err = "Please enter a count of events.";
+} else{
+  $days = $_POST["days"];
 }
 
 if(empty($_POST["color"])){
@@ -128,6 +135,7 @@ if (!empty($name) || !empty($date_started) ||  !empty($date_ended) || !empty($co
     </div>
     <div class="form-group">
       <input type="submit" class="btn btn-primary" value="Submit" href="events.php">
+      <input type="submit" class="btn btn-primary" value="Return" href="events.php">
     </div>
   </div>
   </form>
