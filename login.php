@@ -52,7 +52,7 @@
 
           if(mysqli_stmt_num_rows($stmt) == 1){
 
-            mysqli_stmt_bind_result($stmt, $id, $user_names, $hashed_password);
+            mysqli_stmt_bind_result($stmt, $email, $user_name, $password);
             if(mysqli_stmt_fetch($stmt)){
               if(password_verify($password, $hashed_password)){
                 session_start();
@@ -91,14 +91,43 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/js/bootstrap.bundle.min.js"></script>
     <style>
-    body{ font: 14px sans-serif; }
+    body, html{
+      height: 100%;
+      font: 14px sans-serif;
+      background-image: url('home-banner.jpg');
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+      background-size: 100% 100%;
+    }
+    .bgimg {
+      background-image: url('home-banner.jpg');
+      min-height: 100%;
+      background-position: center;
+      background-size: cover;
+    }
+    btn{
+      background-color: #8585ad;
+    }
     .wrapper{ width: 360px; padding: 20px;
+    }
+    p1{
+      color: white;
+      font: 19px sans-serif;
+    }
+    label{
+      color: white;
+      font: 19px sans-serif;
+    }
+    h2{
+      color: black;
+
     }
     </style>
   </head>
   <body>
     <center>
     <div class="wrapper">
+      <br><br>
       <h2>Login</h2>
       <p>Please fill in your credentials to login.</p>
     </center>
@@ -111,8 +140,8 @@
         <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
           <div class="form-group" class="form-floating mt-3 mb-3">
             <label>Username</label>
-            <input type="text" name="username" id="text" placeholder="Enter username" class="form-control <?php echo (!empty($username_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $user_name; ?>">
-            <span class="invalid-feedback"><?php echo $username_err; ?></span>
+            <input type="text" name="user_name" id="text" placeholder="Enter username" class="form-control <?php echo (!empty($user_name_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $user_name; ?>">
+            <span class="invalid-feedback"><?php echo $user_name_err; ?></span>
           </div>
           <div class="form-group" class="form-floating mb-3 mt-3">
             <label>Email</label>
@@ -127,7 +156,7 @@
           <div class="form-group">
             <input type="submit" class="btn btn-primary" value="Submit" href="events.php">
           </div>
-          <p>Don't have an account? <a href="registration.php">Sign up now</a>.</p>
+          <p1>Don't have an account? <a href="registration.php">Sign up now</a>.</p1>
         </form>
       </div>
     </div>

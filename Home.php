@@ -3,11 +3,14 @@
 <head>
   <title>Home</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
   <style>
   h1 {
     text-align: center;
     text-transform: uppercase;
-    color: black;
+    color: white;
   }
   .btn-group button {
     background-color:#00ace6;
@@ -22,7 +25,7 @@
   }
 
   .button {
-    background-color: #00ace6;
+    background-color: #8585ad;
     border: none;
     color: white;
     padding: 15px 32px;
@@ -41,7 +44,17 @@
     box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24),0 17px 50px 0 rgba(0,0,0,0.19);
   }
   * {box-sizing: border-box}
-body {font-family: Verdana, sans-serif; margin:0}
+body, html{
+  height: 100%;
+  font-family: Verdana, sans-serif;
+  margin:0;
+}
+.bgimg {
+  background-image: url('home-banner.jpg');
+  min-height: 100%;
+  background-position: center;
+  background-size: cover;
+}
 .mySlides {display: none}
 img {vertical-align: middle;
   border: 1px solid #ddd;
@@ -135,74 +148,26 @@ img {vertical-align: middle;
   .prev, .next,.text {font-size: 11px}
 }
 
-header {
-  background-color: #F0F8FF;
-  padding: 5px;
-  text-align: center;
-  font-size: 20px;
-  color: black;
-}
-footer {
-  background-color: #F0F8FF;
-  padding: 10px;
-  text-align: center;
-  color: black;
-  font-family: &#8478;
-}
 </style>
 </head>
-<header>
-  <h1> Welcome to home page on your Calendar</h1>
-  <a class="button" href="login.php" align="center">Login</a>
-  <a class="button" href="registration.php">Registration</a>
-</header>
+
 <body>
-  <center>
-    <div class="slideshow-container">
-<div class="mySlides fade">
-  <div class="numbertext">1 / 2</div>
-  <img src="calendar1.jpg" style="width:100%">
-  <div class="text">Welcome</div>
-</div>
-<div class="mySlides fade">
-  <div class="numbertext">2 / 2</div>
-  <img src="calendar.png" style="width:100%">
-  <div class="text">To your calendar</div>
-</div>
-</div>
-<br>
-<div style="text-align:center">
-  <span class="dot" onclick="currentSlide(1)"></span>
-  <span class="dot" onclick="currentSlide(2)"></span>
-</div>
-<script>
-var slideIndex = 1;
-showSlides(slideIndex);
-function plusSlides(n) {
-showSlides(slideIndex += n);
-}
-function currentSlide(n) {
-showSlides(slideIndex = n);
-}
-function showSlides(n) {
-var i;
-var slides = document.getElementsByClassName("mySlides");
-var dots = document.getElementsByClassName("dot");
-if (n > slides.length) {slideIndex = 1}
-if (n < 1) {slideIndex = slides.length}
-for (i = 0; i < slides.length; i++) {
-    slides[i].style.display = "none";
-}
-for (i = 0; i < dots.length; i++) {
-    dots[i].className = dots[i].className.replace(" active", "");
-}
-slides[slideIndex-1].style.display = "block";
-dots[slideIndex-1].className += " active";
-}
-</script>
-  </center>
-  <footer>
-    <p>Made your own calendar</p>
-  </footer>
+
+    <div class="bgimg w3-display-container w3-animate-opacity w3-text-white">
+      <div class="w3-display-middle">
+    <hr class="w3-border-grey" style="margin:auto;width:100%">
+    <h1 class="w3-jumbo w3-animate-top"> Welcome to home page on your Calendar</h1>
+    <hr class="w3-border-grey" style="margin:auto;width:40%">
+    <p class="w3-large w3-center">Made your own calendar</p>
+    <hr class="w3-border-grey" style="margin:auto;width:40%">
+    <div class="row g-0 d-flex justify-content-center">
+      <div class="col-auto">
+    <a class="button" href="login.php">Login</a>
+    <a class="button" href="registration.php">Registration</a>
+  </div>
+  </div>
+  </div>
+  </div>
+
 </body>
 </html>

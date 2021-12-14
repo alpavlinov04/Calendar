@@ -3,15 +3,18 @@ class Calendar {
   private $active_year, $active_month, $active_day;
   private $events = [];
 
-  public function __construct($date = null) {
-    $this->active_year = $date != null ? date('Y', strtotime($date)) : date('Y');
-    $this->active_month = $date != null ? date('m', strtotime($date)) : date('m');
-    $this->active_day = $date != null ? date('d', strtotime($date)) : date('d');
+  public function __construct($date_started = null) {
+    $this->active_year = $date_started != null ? date('Y', strtotime($date_started)) : date('Y');
+    $this->active_month = $date_started != null ? date('m', strtotime($date_started)) : date('m');
+    $this->active_day = $date_started != null ? date('d', strtotime($date_started)) : date('d');
   }
 
-  public function add_event($name, $date, $days = 1, $color = '') {
+  public function add_event($name, $date_started, $days = 1, $color = '') {
     $color = $color ? ' ' . $color : $color;
-    $this->events[] = [$name, $date, $days, $color];
+    $name = $name ? ' ' . $name : $name;
+    $date_started = $date_started ? ' ' . $date_started : $date_started;
+    $days = $days ? ' ' . $days : $days;
+    $this->events[] = [$name, $date_started, $days, $color];
   }
   public function __toString() {
     $num_days = date('t', strtotime($this->active_day . '-' . $this->active_month . '-' . $this->active_year));

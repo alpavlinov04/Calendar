@@ -36,14 +36,6 @@ if(empty($_POST["color"])){
 } else{
   $color = $_POST["color"];
 }
-$event = $_POST['event'];
-$event = array(
-  'name' => $name,
-  'date_started' => $date_started,
-  'date_ended' => $date_ended,
-  'days' => $days,
-  'color' => $color,
-);
 if (!empty($name) || !empty($date_started) ||  !empty($date_ended) || !empty($color)){
 
   $INSERT = "INSERT INTO `events`(`name`, `date_started`, `date_ended`, `color`) VALUES (?, ?, ?, ?)";
@@ -79,6 +71,13 @@ if (!empty($name) || !empty($date_started) ||  !empty($date_ended) || !empty($co
     font-size: 20px;
     color: black;
   }
+  footer{
+    background-color: #F0F8FF;
+    padding: 5px;
+    text-align: center;
+    font-size: 20px;
+    color: black;
+  }
   .btn-group button {
     background-color:#00ace6;
     padding: 10px 24px;
@@ -92,7 +91,7 @@ if (!empty($name) || !empty($date_started) ||  !empty($date_ended) || !empty($co
   }
 
   .button {
-    background-color: #00ace6;
+    background-color: #8585ad;
     border: none;
     color: white;
     padding: 15px 32px;
@@ -117,37 +116,39 @@ if (!empty($name) || !empty($date_started) ||  !empty($date_ended) || !empty($co
   <div class="logo">
     <img src="logo.jpg" alt="Calendar logo" width="125">
   </div>
-    <a class="button" href="events.php" align="center">Return</a>
+  <a class="button" href="events.php" align="center">Return</a>
 </header>
-<br><br>
-  <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
-    <div class="form-group">
-      <label>Name</label>
-      <input type="text" name="name" class="form-control <?php echo (!empty($name_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $name; ?>">
-      <span class="invalid-feedback"><?php echo $name_err; ?></span>
-    </div>
-    <div class="form-group">
-      <label>Date started</label>
-      <input type="datetime-local" name="date_started" class="form-control <?php echo (!empty($date_started_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $date_started; ?>">
-      <span class="invalid-feedback"><?php echo $date_started_err; ?></span>
-    </div>
-    <div class="form-group">
-      <label>Date ended</label>
-      <input type="datetime-local" name="date_ended" class="form-control <?php echo (!empty($date_ended_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $date_ended; ?>">
-      <span class="invalid-feedback"><?php echo $date_ended_err; ?></span>
-    </div>
-    <div class="form-group">
-      <label>Color</label>
-      <input type="color" name="color" class="form-control <?php echo (!empty($color_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $color; ?>">
-      <span class="invalid-feedback"><?php echo $color_err; ?></span>
-    </div>
-    <div class="form-group">
-      <input type="submit" class="btn btn-primary" value="Submit" href="events.php">
-      <input type="submit" class="btn btn-primary" value="Return" href="events.php">
-    </div>
-
+<form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
+  <div class="form-group">
+    <label>Name</label>
+    <input type="text" name="name" class="form-control <?php echo (!empty($name_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $name; ?>">
+    <span class="invalid-feedback"><?php echo $name_err; ?></span>
   </div>
-  </form>
+  <div class="form-group">
+    <label>Date started</label>
+    <input type="datetime-local" name="date_started" class="form-control <?php echo (!empty($date_started_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $date_started; ?>">
+    <span class="invalid-feedback"><?php echo $date_started_err; ?></span>
+  </div>
+  <div class="form-group">
+    <label>Date ended</label>
+    <input type="datetime-local" name="date_ended" class="form-control <?php echo (!empty($date_ended_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $date_ended; ?>">
+    <span class="invalid-feedback"><?php echo $date_ended_err; ?></span>
+  </div>
+  <div class="form-group">
+    <label>Color</label>
+    <input type="color" name="color" class="form-control <?php echo (!empty($color_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $color; ?>">
+    <span class="invalid-feedback"><?php echo $color_err; ?></span>
+  </div>
+  <div class="form-group">
+    <input type="submit" class="btn btn-primary" value="Submit" href="events.php">
+    <input type="submit" class="btn btn-primary" value="Return" href="events.php">
+  </div>
 
-  </body>
-  </html>
+</div>
+</form>
+<footer>
+  <p> Made your own calendar </p>
+
+</footer>
+</body>
+</html>

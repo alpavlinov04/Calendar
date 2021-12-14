@@ -28,7 +28,7 @@
           mysqli_stmt_store_result($stmt);
 
           if(mysqli_stmt_num_rows($stmt) == 1){
-            $username_err = "This username is already taken.";
+            $user_name_err = "This username is already taken.";
           } else{
             $user_name = $_POST["user_name"];
           }
@@ -96,13 +96,30 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <style>
-    body{ font: 14px sans-serif; }
-    .wrapper{ width: 360px; padding: 20px; }
+    body, html{
+      height: 100%;
+      font: 14px sans-serif;
+      background-image: url('home-banner.jpg');
+      background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: 100% 100%;
+    }
+    .bgimg{
+    background-image: url('home-banner.jpg');
+    min-height: 100%;
+    background-position: center;
+    background-size: covser;
+    .wrapper{ width: 360px; padding: 20px;
+    }
     </style>
   </head>
   <body>
     <center>
+      <br><br>
       <div class="wrapper">
         <h2>Registration</h2>
         <p>Please fill this form to create an account.</p>
