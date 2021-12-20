@@ -153,8 +153,8 @@
         <p>Already have an account? <a href="login.php">Login here</a>.</p>
       </form>
     </div>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js">
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
     <script type="text/javascript">
     $(function(){
       $('#register').click(function(e){

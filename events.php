@@ -4,6 +4,7 @@ if($link === false){
   die("ERROR: Could not connect. " . mysqli_connect_error());
 }
 ?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -144,7 +145,7 @@ $calendar->add_event('Holiday', '2021-12-23', 9, 'red');
 $calendar->add_event('Work', '2021-12-13', 2, 'green');
 $calendar->add_event('Post', '2021-12-14', 1, 'blue');
 echo $calendar;
-$select = "SELECT `id`, `name`, `date`, `color` FROM `events` WHERE 1";
+$select = "SELECT `id`, `name`, `date`, `color` FROM `events`";
 $result = mysqli_query($link, $select);
 if (mysqli_num_rows($result) > 0) {
   while($row = mysqli_fetch_assoc($result)){
@@ -152,11 +153,8 @@ if (mysqli_num_rows($result) > 0) {
     echo '<br>';
   }
 }
-
 ?>
-<?php
 
-?>
 <a class="button" href="made_events.php" align="center">Made events</a>
 <a class="button" href="Home.php" align="center">Home</a>
 </body>

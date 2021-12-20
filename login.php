@@ -105,9 +105,6 @@
       background-position: center;
       background-size: cover;
     }
-    btn{
-      background-color: #8585ad;
-    }
     .wrapper{ width: 360px; padding: 20px;
     }
     p1{

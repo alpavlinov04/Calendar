@@ -40,7 +40,7 @@ if (!empty($name) || !empty($date_started) ||  !empty($date_ended) || !empty($co
 
   $INSERT = "INSERT INTO `events`(`name`, `date_started`, `date_ended`, `color`) VALUES (?, ?, ?, ?)";
   $stmt = $link->prepare($INSERT);
-  $stmt->bind_param("ssss", $name, $date_started, $date_ended, $color);
+  $stmt->bind_param($name, $date_started, $date_ended, $color);
   $stmt->execute();
   $stmt->bind_result($name, $date_started, $date_ended, $color);
   $stmt->store_result();

@@ -18,12 +18,12 @@
     cursor: pointer;
     float: center;
   }
-  .btn-group:after {
+  .btn-group:after{
     content: "";
     clear: both;
     display: table;
   }
-
+  
   .button {
     background-color: #8585ad;
     border: none;
