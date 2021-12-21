@@ -5,10 +5,8 @@
 </head>
 <body>
   <?php
-  $link = mysqli_connect('localhost', 'root', '', 'calendar');
-  if($link === false){
-    die("ERROR: Could not connect. " . mysqli_connect_error());
-  }
+  session_start();
+  include 'connection.php';
 
   $user_name = $password = $confirm_password = $email = "";
   $user_name_err = $password_err = $confirm_password_err = $email_err = "";
@@ -97,97 +95,97 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/js/bootstrap.bundle.min.js"></script>
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <style>
     body, html{
       height: 100%;
       font: 14px sans-serif;
       background-image: url('home-banner.jpg');
       background-repeat: no-repeat;
-  background-attachment: fixed;
-  background-size: 100% 100%;
+      background-attachment: fixed;
+      background-size: 100% 100%;
     }
     .bgimg{
-    background-image: url('home-banner.jpg');
-    min-height: 100%;
-    background-position: center;
-    background-size: covser;
-    .wrapper{ width: 360px; padding: 20px;
-    }
-    </style>
-  </head>
-  <body>
-    <center>
-      <br><br>
-      <div class="wrapper">
-        <h2>Registration</h2>
-        <p>Please fill this form to create an account.</p>
-      </center>
+      background-image: url('home-banner.jpg');
+      min-height: 100%;
+      background-position: center;
+      background-size: covser;
+      .wrapper{ width: 360px; padding: 20px;
+      }
+      </style>
+    </head>
+    <body>
+      <center>
+        <br><br>
+        <div class="wrapper">
+          <h2>Registration</h2>
+          <p>Please fill this form to create an account.</p>
+        </center>
 
-      <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" class="container mt-3" method="post">
-        <div class="form-group" class="form-floating mb-3 mt-3">
-          <label for="text">Username</label>
-          <input required type="text" name="user_name" id="text" placeholder="Enter username" class="form-control <?php echo (!empty($user_name_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $user_name; ?>">
-          <span class="invalid-feedback"><?php echo $user_name_err; ?></span>
-        </div>
-        <div class="form-group" class="form-floating mb-3 mt-3">
-          <label for="email">Email</label>
-          <input required type="email" name="email" id="email" placeholder="Enter email" class="form-control <?php echo (!empty($email_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $email; ?>">
-          <span class="invalid-feedback"><?php echo $email_err; ?></span>
-        </div>
-        <div class="form-group" class="form-floating mb-3 mt-3">
-          <label for="pwd">Password</label>
-          <input required type="password" name="password" id="pwd" placeholder="Enter password" class="form-control <?php echo (!empty($password_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $password; ?>">
-          <span class="invalid-feedback"><?php echo $password_err; ?></span>
-        </div>
-        <div class="form-group" class="form-floating mb-3 mt-3">
-          <label for="pwd">Confirm Password</label>
-          <input required type="password" name="confirm_password" id="pwd" placeholder="Enter again password" class="form-control <?php echo (!empty($confirm_password_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $confirm_password; ?>">
-          <span class="invalid-feedback"><?php echo $confirm_password_err; ?></span>
-        </div>
-        <div class="form-group">
-          <input type="submit" class="btn btn-primary" value="Submit" href="events.php">
-          <input type="reset" class="btn btn-secondary ml-2" value="Reset">
-        </div>
-        <p>Already have an account? <a href="login.php">Login here</a>.</p>
-      </form>
-    </div>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
-    <script type="text/javascript">
-    $(function(){
-      $('#register').click(function(e){
-        var valid = this.form.checkValidity();
-        if(valid){
-          var user_name = $('#user_name').val();
-          var email = $('#email').val();
-          var password = $('#password').val();
-          var repied_password = $('#repied_password').val();
-          e.preventDefault();
-          $.ajax({
-            type: 'POST',
-            url: 'process.php',
-            data: {firstname: firstname,lastname: lastname,email: email,phonenumber: phonenumber,password: password},
-            success: function(data){
-              Swal.fire({
-                'title': 'Successful',
-                'text': data,
-                'type': 'success'
-              })
-            },
-            error: function(data){
-              Swal.fire({
-                'title': 'Errors',
-                'text': 'There were errors while saving the data.',
-                'type': 'error'
-              })
-            }
-          });
-        }else{
-        }
+        <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" class="container mt-3" method="post">
+          <div class="form-group" class="form-floating mb-3 mt-3">
+            <label for="text">Username</label>
+            <input required type="text" name="user_name" id="text" placeholder="Enter username" class="form-control <?php echo (!empty($user_name_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $user_name; ?>">
+            <span class="invalid-feedback"><?php echo $user_name_err; ?></span>
+          </div>
+          <div class="form-group" class="form-floating mb-3 mt-3">
+            <label for="email">Email</label>
+            <input required type="email" name="email" id="email" placeholder="Enter email" class="form-control <?php echo (!empty($email_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $email; ?>">
+            <span class="invalid-feedback"><?php echo $email_err; ?></span>
+          </div>
+          <div class="form-group" class="form-floating mb-3 mt-3">
+            <label for="pwd">Password</label>
+            <input required type="password" name="password" id="pwd" placeholder="Enter password" class="form-control <?php echo (!empty($password_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $password; ?>">
+            <span class="invalid-feedback"><?php echo $password_err; ?></span>
+          </div>
+          <div class="form-group" class="form-floating mb-3 mt-3">
+            <label for="pwd">Confirm Password</label>
+            <input required type="password" name="confirm_password" id="pwd" placeholder="Enter again password" class="form-control <?php echo (!empty($confirm_password_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $confirm_password; ?>">
+            <span class="invalid-feedback"><?php echo $confirm_password_err; ?></span>
+          </div>
+          <div class="form-group">
+            <input type="submit" class="btn btn-primary" value="Submit" href="events.php">
+            <input type="reset" class="btn btn-secondary ml-2" value="Reset">
+          </div>
+          <p>Already have an account? <a href="login.php">Login here</a>.</p>
+        </form>
+      </div>
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
+      <script type="text/javascript">
+      $(function(){
+        $('#register').click(function(e){
+          var valid = this.form.checkValidity();
+          if(valid){
+            var user_name = $('#user_name').val();
+            var email = $('#email').val();
+            var password = $('#password').val();
+            var confirm_password = $('#confirm_password').val();
+            e.preventDefault();
+            $.ajax({
+              type: 'POST',
+              url: 'process.php',
+              data: {firstname: firstname,lastname: lastname,email: email,phonenumber: phonenumber,password: password},
+              success: function(data){
+                Swal.fire({
+                  'title': 'Successful',
+                  'text': data,
+                  'type': 'success'
+                })
+              },
+              error: function(data){
+                Swal.fire({
+                  'title': 'Errors',
+                  'text': 'There were errors while saving the data.',
+                  'type': 'error'
+                })
+              }
+            });
+          }else{
+          }
+        });
       });
-    });
-    </script>
-  </body>
-  </html>
+      </script>
+    </body>
+    </html>

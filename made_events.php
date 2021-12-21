@@ -1,22 +1,19 @@
 <?php
+include 'connection.php';
 include 'calendar.php';
-$link = mysqli_connect('localhost', 'root', '', 'calendar');
-if($link === false){
-  die("ERROR: Could not connect. " . mysqli_connect_error());
-}
-$name = $date_started = $date_ended = $days = $color = $calendar = "";
-$name_err = $date_started_err = $date_ended_err = $days_err = $color_err = "";
+$names = $dates = $date_ended = $days = $color = $calendar = "";
+$names_err = $dates_err = $date_ended_err = $days_err = $color_err = "";
 
-if(empty($_POST["name"])){
-  $name_err = "Please enter a name of events.";
+if(empty($_POST["names"])){
+  $names_err = "Please enter a name of events.";
 } else{
-  $name = $_POST["name"];
+  $names = $_POST["names"];
 }
 
-if(empty($_POST["date_started"])){
-  $date_started_err = "Please enter a date start of events.";
+if(empty($_POST["dates"])){
+  $dates_err = "Please enter a date start of events.";
 } else{
-  $date_started = $_POST["date_started"];
+  $dates = $_POST["dates"];
 }
 
 if(empty($_POST["date_ended"])){
@@ -36,13 +33,14 @@ if(empty($_POST["color"])){
 } else{
   $color = $_POST["color"];
 }
-if (!empty($name) || !empty($date_started) ||  !empty($date_ended) || !empty($color)){
 
-  $INSERT = "INSERT INTO `events`(`name`, `date_started`, `date_ended`, `color`) VALUES (?, ?, ?, ?)";
+if (!empty($names) || !empty($dates) ||  !empty($date_ended) || !empty($color)){
+
+  $INSERT = "INSERT INTO `events`(`names`, `dates`, `date_ended`, `color`) VALUES (?, ?, ?, ?)";
   $stmt = $link->prepare($INSERT);
-  $stmt->bind_param($name, $date_started, $date_ended, $color);
+  $stmt->bind_param($names, $dates, $date_ended, $color);
   $stmt->execute();
-  $stmt->bind_result($name, $date_started, $date_ended, $color);
+  $stmt->bind_result($names, $dates, $date_ended, $color);
   $stmt->store_result();
   $rnum = $stmt->num_rows;
   if($rnum == 0)
@@ -121,13 +119,13 @@ if (!empty($name) || !empty($date_started) ||  !empty($date_ended) || !empty($co
 <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
   <div class="form-group">
     <label>Name</label>
-    <input type="text" name="name" class="form-control <?php echo (!empty($name_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $name; ?>">
-    <span class="invalid-feedback"><?php echo $name_err; ?></span>
+    <input type="text" name="names" class="form-control <?php echo (!empty($names_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $names; ?>">
+    <span class="invalid-feedback"><?php echo $names_err; ?></span>
   </div>
   <div class="form-group">
     <label>Date started</label>
-    <input type="datetime-local" name="date_started" class="form-control <?php echo (!empty($date_started_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $date_started; ?>">
-    <span class="invalid-feedback"><?php echo $date_started_err; ?></span>
+    <input type="datetime-local" name="dates" class="form-control <?php echo (!empty($dates_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $dates; ?>">
+    <span class="invalid-feedback"><?php echo $dates_err; ?></span>
   </div>
   <div class="form-group">
     <label>Date ended</label>
