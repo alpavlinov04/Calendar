@@ -141,8 +141,8 @@ session_start();
 <?php
 include 'calendar.php';
 $calendar = new Calendar();
-$calendar->add_event('Holiday', '2021-12-23', 9, 'red');
-$calendar->add_event('Work', '2021-12-13', 2, 'green');
+$calendar->add_event('Holiday', '2022-01-1', 3, 'red');
+$calendar->add_event('Work', '2022-01-4', 1, 'green');
 $calendar->add_event('Post', '2021-12-14', 1, 'blue');
 echo $calendar;
 ?>

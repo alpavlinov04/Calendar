@@ -19,8 +19,8 @@
     } else{
       $sql = $_POST["sql"];
       if($stmt = mysqli_prepare($link, $sql)){
-        mysqli_stmt_bind_param($stmt, "s", $param_username);
-        $param_username = $_POST["user_name"];
+        mysqli_stmt_bind_param($stmt, "s", $param_user_name);
+        $param_user_name = $_POST["user_name"];
         if(mysqli_stmt_execute($stmt)){
 
           mysqli_stmt_store_result($stmt);
@@ -63,8 +63,9 @@
       }
     }
 
-    if (!empty($user_name) || !empty($email) ||  !empty($password) || !empty($confirm_password)){
 
+
+    if (!empty($user_name) || !empty($email) ||  !empty($password) || !empty($confirm_password)){
       $Insert = "INSERT INTO `users`(`user_name`, `email`, `password`, `confirm_password`) VALUES (?, ?, ?, ?)";
       $stmt = $link->prepare($Insert);
       $stmt->bind_param("ssss", $user_name, $email, $password, $confirm_password);
@@ -166,7 +167,7 @@
             $.ajax({
               type: 'POST',
               url: 'process.php',
-              data: {firstname: firstname,lastname: lastname,email: email,phonenumber: phonenumber,password: password},
+              data: {user_name: user_name,,email: email,password: password, confirm_password : confirm_password},
               success: function(data){
                 Swal.fire({
                   'title': 'Successful',
